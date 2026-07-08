@@ -137,11 +137,15 @@ bool detectLoop(Node* head) {
 
     while(temp != NULL) {           // Traverse list
 
-        if(visited[temp]) {         // If node already visited
+        if(visited[temp]) {         // If node already visited 
             cout << "Loop present at node "
                  << temp->data << endl; // Print loop info
             return true;            // Loop detected
         }
+       //  The logic is:Check whether the current node has already been visited.
+       //  If yes → loop found.
+       //  Otherwise, mark it as visited.
+       // Move to the next node.
 
         visited[temp] = true;       // Mark node as visited
         temp = temp->next;          // Move to next node
