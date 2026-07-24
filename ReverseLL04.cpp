@@ -2,7 +2,7 @@
 Node* reverseLinkedList(Node* head) {
     Node* prev = NULL;      // previous node
     Node* curr = head;      // current node
-    Node* next = NULL;      // next node
+    Node* next = NULL;       // next node
 
     while (curr != NULL) {
         next = curr->next;  // store next
