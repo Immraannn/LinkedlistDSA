@@ -88,7 +88,7 @@ Node* sortZeroOne(Node* head) {
     oneTail->next = NULL;
 
     // Update head to start of sorted list
-    head = zeroHead->next;
+    head = zeroHead->next;// bexause to remove dummy node(-1_
 
     // Delete dummy nodes to avoid memory leak
     delete zeroHead;
