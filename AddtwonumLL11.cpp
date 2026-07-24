@@ -45,38 +45,79 @@ Node* addTwoLists(Node* first, Node* second) {
     return dummy->next;          // return result list
 }
 
+//********************************CONCEPT******************************
+// Create a dummy node.
+// It is a permanent starting node for the new linked list.
+//Node* dummy = new Node(-1);
+// curr and dummy both point to the SAME node.
+// No new node is created here.
+// Only the address is copied.
+//Node* curr = dummy;
+/*
+Memory:
+dummy
+  |
+  v
+[-1] -> NULL
+  ^
+  |
+ curr
+*/
+// Add a new node after curr.
+//curr->next = new Node(10);
+/*
+Since curr and dummy point to the same node,
+curr->next and dummy->next refer to the same next pointer.
+Memory:
+dummy
+  |
+  v
+[-1] -> [10] -> NULL
+  ^
+  |
+ curr
+*/
+// Move curr to the newly added node.
+//curr = curr->next;
+/*
+Only curr moves.
+dummy stays at the first node.
+Memory:
+dummy
+  |
+  v
+[-1] -> [10] -> NULL
+          ^
+          |
+         curr
+*/
+// Add another node after curr.
+//curr->next = new Node(20);
+/*
+Memory:
+dummy
+  |
+  v
+[-1] -> [10] -> [20] -> NULL
+                    ^
+                    |
+                   curr
+The linked list is still connected to dummy.
+curr simply helps us build the list.
+*/
+// At the end, skip the dummy node.
+//return dummy->next;
+/*
+Why dummy?
+1. Avoids special handling for the first node.
+2. We never lose the head of the new linked list.
+3. curr keeps moving while dummy always stays at the beginning.
+4. Since curr initially points to dummy, any changes through curr
+   automatically become part of the list starting from dummy.
+Important:
+Node* curr = dummy;
+DOES NOT create a copy of the linked list.
+It only copies the ADDRESS.
 
-//RECURSIVE METHO
-Node* add(Node* l1, Node* l2, int carry) {
-
-    // Base case: no nodes left and no carry
-    if (l1 == NULL && l2 == NULL && carry == 0) {
-        return NULL;
-    }
-
-    int sum = carry;   // start with carry
-
-    // add l1 digit if exists
-    if (l1 != NULL)
-        sum += l1->data;
-
-    // add l2 digit if exists
-    if (l2 != NULL)
-        sum += l2->data;
-
-    int digit = sum % 10;   // digit for current node
-    int newCarry = sum / 10; // carry for next recursion
-
-    // create current node
-    Node* result = new Node(digit);
-
-    // recursive call for next nodes
-    result->next = add(
-        (l1 != NULL) ? l1->next : NULL,
-        (l2 != NULL) ? l2->next : NULL,
-        newCarry
-    );
-
-    return result; // return permanent head of this sub-list
-}
-
+Both pointers refer to the same node until curr is moved.
+*/
