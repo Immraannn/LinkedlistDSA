@@ -52,6 +52,21 @@ void print(Node* head) {            // Function to print linked list
     cout << endl;                   // New line after printing list
 }
 
+
+int length(Node* head) {
+
+    int cnt = 0;
+
+    while (head != nullptr) {
+
+        cnt++;
+
+        head = head->next;
+    }
+
+    return cnt;
+}
+
 // ===================== INSERT AT POSITION =====================
 void insertAtPosition(Node* &tail, Node* &head, int position, int d) {
 
