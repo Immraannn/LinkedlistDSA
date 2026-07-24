@@ -139,33 +139,29 @@ bool isCircular(Node* head) {
     return false;
 }
 
-// ===================== LOOP DETECTION (MAP METHOD) =====================
+// ===================== LOOP DETECTION (floyd METHOD) =====================
 bool detectLoop(Node* head) {
 
-    if(head == NULL)                // If list is empty
-        return false;               // No loop
+    // Empty list or single node without self-loop
+    if (head == nullptr)
+        return false;
 
-    map<Node*, bool> visited;       // Map to track visited nodes
-    Node* temp = head;              // Start traversal from head
+    Node* slow = head;
+    Node* fast = head;
 
-    while(temp != NULL) {           // Traverse list
+    while (fast != nullptr && fast->next != nullptr) {
 
-        if(visited[temp]) {         // If node already visited 
-            cout << "Loop present at node "
-                 << temp->data << endl; // Print loop info
-            return true;            // Loop detected
-        }
-       //  The logic is:Check whether the current node has already been visited.
-       //  If yes → loop found.
-       //  Otherwise, mark it as visited.
-       // Move to the next node.
+        slow = slow->next;          // Move 1 step
+        fast = fast->next->next;    // Move 2 steps
 
-        visited[temp] = true;       // Mark node as visited
-        temp = temp->next;          // Move to next node
+        // If they meet, a loop exists
+        if (slow == fast)
+            return true;
     }
-    return false;                   // No loop found
-}
 
+    // Fast reached NULL → no loop
+    return false;
+}
 // ===================== FLOYD CYCLE DETECTION =====================
 Node* floydDetectLoop(Node* head) {
 
