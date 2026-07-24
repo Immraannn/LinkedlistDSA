@@ -127,18 +127,16 @@ void deleteNode(int position, Node* &head) {
 }
 
 // ===================== CHECK CIRCULAR LIST =====================
-bool isCircularList(Node* head) {
-
-    if(head == NULL)                // Empty list is circular
-        return true;                // Return true
-
-    Node* temp = head->next;        // Start from second node
-
-    while(temp != NULL && temp != head) { // Traverse list
-        temp = temp->next;          // Move to next node
+bool isCircular(Node* head) {
+    if (head == nullptr)
+        return true;
+    Node* curr = head;
+    while (curr->next != nullptr) {
+        if (curr->next == head)
+            return true;
+        curr = curr->next;
     }
-
-    return (temp == head);          // True if circular
+    return false;
 }
 
 // ===================== LOOP DETECTION (MAP METHOD) =====================
