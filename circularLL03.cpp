@@ -101,47 +101,6 @@ void deleteNode(Node* &tail, int value) {
     delete curr;                      // delete node
 }
 
-// Function to check if linked list is circular
-bool isCircularList(Node* head) {
-
-    // Empty list is circular
-    if (head == NULL)
-        return true;
-
-    Node* temp = head->next;          // start from next node
-
-    // Traverse list
-    while (temp != NULL && temp != head) {
-        temp = temp->next;            // move forward
-    }
-
-    // If returned to head → circular
-    return (temp == head);
-}
-
-// Function to detect loop using map (for normal linked list)
-bool detectLoop(Node* head) {
-
-    // If list is empty
-    if (head == NULL)
-        return false;
-
-    map<Node*, bool> visited;          // map to track visited nodes
-    Node* temp = head;                // start from head
-
-    // Traverse list
-    while (temp != NULL) {
-
-        // If node already visited → loop exists
-        if (visited[temp] == true)
-            return true;
-
-        visited[temp] = true;         // mark node visited
-        temp = temp->next;            // move forward
-    }
-
-    return false;                     // no loop found
-}
 
 // Main function
 int main() {
