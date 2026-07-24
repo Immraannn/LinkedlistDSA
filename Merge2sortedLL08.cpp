@@ -1,66 +1,42 @@
-//ITERATIVE METHOD
-#include<iostream>          // input-output library
-using namespace std;        // standard namespace
-
-// Node class for linked list
-class Node {
+class Solution {
 public:
-    int data;               // data part of node
-    Node* next;             // pointer to next node
+    Node* mergeTwoLists(Node* list1, Node* list2) {
 
-    Node(int d) {            // constructor
-        data = d;            // assign data
-        next = NULL;         // initialize next as NULL
+        // Create a dummy node
+        Node* dummy = new Node(-1);
+
+        // Tail always points to the last node of merged list
+        Node* tail = dummy;
+
+        // Merge until one list becomes empty
+        while (list1 != nullptr && list2 != nullptr) {
+
+            if (list1->val <= list2->val) {
+                tail->next = list1;
+                list1 = list1->next;
+            }
+            else {
+                tail->next = list2;
+                list2 = list2->next;
+            }
+
+            tail = tail->next;
+        }
+
+        // Attach remaining nodes
+        if (list1 != nullptr)
+            tail->next = list1;
+        else
+            tail->next = list2;
+
+        // First real node
+        Node* head = dummy->next;
+
+        delete dummy;
+
+        return head;
     }
 };
-
-// Function to merge two sorted linked lists iteratively
-Node* mergeTwoLists(Node* head1, Node* head2) {
-
-    if(head1 == NULL)        // if first list is empty
-        return head2;        // return second list
-
-    if(head2 == NULL)        // if second list is empty
-        return head1;        // return first list
-
-    Node* head = NULL;       // head of merged linked list
-    Node* tail = NULL;       // tail of merged linked list
-
-    // Decide first node of merged list
-    if(head1->data < head2->data) {   // compare first nodes
-        head = head1;                  // head points to smaller node
-        tail = head1;                  // tail also points to same node
-        head1 = head1->next;           // move head1 forward
-    } else {
-        head = head2;                  // head points to smaller node
-        tail = head2;                  // tail also points to same node
-        head2 = head2->next;           // move head2 forward
-    }
-
-    // Traverse both linked lists
-    while(head1 != NULL && head2 != NULL) {
-
-        if(head1->data < head2->data) { // compare current nodes
-            tail->next = head1;          // connect smaller node
-            tail = head1;                // move tail forward
-            head1 = head1->next;         // move head1 forward
-        } else {
-            tail->next = head2;          // connect smaller node
-            tail = head2;                // move tail forward
-            head2 = head2->next;         // move head2 forward
-        }
-    }
-
-    // Attach remaining nodes of first list
-    if(head1 != NULL)
-        tail->next = head1;              // connect remaining nodes
-
-    // Attach remaining nodes of second list
-    else
-        tail->next = head2;              // connect remaining nodes
-
-    return head;                         // return merged list head
-}
 
 
 
