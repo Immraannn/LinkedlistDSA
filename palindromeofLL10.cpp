@@ -1,22 +1,5 @@
-#include <iostream>              // Include input-output stream library
-using namespace std;             // Use standard namespace
-
-// Node class for linked list
-class Node {
-public:
-    int data;                    // Stores value of node
-    Node* next;                  // Pointer to next node
-
-    // Constructor to initialize node
-    Node(int d) {
-        data = d;                // Assign data
-        next = NULL;             // Initialize next as NULL
-    }
-};
-
 // Function to reverse a linked list
 Node* reverse(Node* head) {
-
     Node* prev = NULL;           // Previous pointer initially NULL
     Node* curr = head;           // Current pointer starts from head
     Node* next = NULL;           // Next pointer to store next node
@@ -66,23 +49,4 @@ bool isPalindrome(Node* head) {
     }
 
     return true;                 // Palindrome confirmed
-}
-
-// Main function
-int main() {
-
-    // Creating linked list: 1 -> 2 -> 3 -> 2 -> 1
-    Node* head = new Node(1);                        // First node
-    head->next = new Node(2);                        // Second node
-    head->next->next = new Node(3);                  // Third node
-    head->next->next->next = new Node(2);            // Fourth node
-    head->next->next->next->next = new Node(1);      // Fifth node
-
-    // Check palindrome and print result
-    if (isPalindrome(head))                          // Call function
-        cout << "Linked List is Palindrome" << endl; // Output if true
-    else
-        cout << "Linked List is NOT Palindrome" << endl; // Output if false
-
-    return 0;                                        // End program
 }
