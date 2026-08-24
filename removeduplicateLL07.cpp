@@ -17,28 +17,26 @@ Node* removeDuplicates(Node* head) {
    return head;  
 }
 // Function to remove duplicates from UNSORTED linked list
-Node* removeDuplicates(Node* head) {
-    if (head == NULL) {
-        return head;
-    }
-    map<int, bool> visited;   // map to track visited values
-    Node* curr = head;        // current node
-    Node* prev = NULL;        // previous node
-    while (curr != NULL) {
-        // if data already visited
-        if (visited[curr->data] == true) {
-            Node* temp = curr;         // store duplicate node
-            prev->next = curr->next;   // bypass duplicate
-            curr = curr->next;         // move curr forward
-            delete temp;               // delete duplicate node
+void removeDuplicates(Node* head)
+{
+    unordered_map<int, bool> visited;
+    Node* curr = head;
+    Node* prev = NULL;
+    while(curr != NULL)
+    {
+        // If current value was already seen
+        if(visited[curr->data] == true)
+        {
+            prev->next = curr->next;
+            delete curr;
+            curr = prev->next;
         }
-        else {
-            visited[curr->data] = true; // mark data as visited
-            prev = curr;                // move prev
-            curr = curr->next;          // move curr
+        else
+        {
+            // First time seeing this value
+            visited[curr->data] = true;
+            prev = curr;
+            curr = curr->next;
         }
     }
-
-    return head;  // return updated head
 }
-
