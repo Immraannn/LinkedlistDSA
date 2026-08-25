@@ -33,7 +33,7 @@ bool isPalindrome(Node* head) {
     }
 
     // Reverse second half of the list
-    Node* secondHalf = reverse(slow->next);
+    Node* secondHalf = reverse(slow);
 
     Node* firstHalf = head;      // Pointer for first half
     Node* temp = secondHalf;     // Pointer for second half
