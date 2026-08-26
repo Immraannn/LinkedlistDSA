@@ -1,17 +1,17 @@
 //ITERATIVE METHOD
 Node* reverseLinkedList(Node* head) {
-    Node* prev = NULL;      // previous node
-    Node* curr = head;      // current node
-    Node* next = NULL;       // next node
+    Node* prev = NULL;    
+    Node* curr = head;     
+    Node* next = NULL;     
 
     while (curr != NULL) {
-        next = curr->next;  // store next
-        curr->next = prev;  // reverse link
-        prev = curr;        // move prev forward
-        curr = next;        // move curr forward
+        next = curr->next;  
+        curr->next = prev;  
+        prev = curr;        
+        curr = next;        
     }
 
-    return prev;            // new head
+    return prev;            
 }
 
 
