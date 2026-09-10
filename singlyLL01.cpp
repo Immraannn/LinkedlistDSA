@@ -1,118 +1,95 @@
-#include <iostream>                 // Header file for input-output
-#include <map>                      // Header file for map (used in loop detection)
-using namespace std;                // To avoid writing std:: repeatedly
-
-// ===================== NODE CLASS =====================
-class Node {                        // Class representing a node of linked list
-public:                             // Public access specifier
-    int data;                       // Variable to store node data
-    Node* next;                     // Pointer to next node
-
-    Node(int data) {                // Constructor of Node class
-        this->data = data;          // Assign value to data of node
-        this->next = NULL;          // Initialize next pointer as NULL
+#include <iostream>                 
+#include <map>                      
+using namespace std;                
+class Node {                       
+public:                             
+    int data;                       
+    Node* next;                     
+    Node(int data) {               
+        this->data = data;          
+        this->next = NULL;          
     }
 
-    ~Node() {                       // Destructor of Node class
-        cout << "Memory freed for node with data "
-             << this->data << endl; // Print message when node is deleted
+    ~Node() {                      
+        cout << "Memory freed for node with data "<< this->data << endl; 
     }
 };
 
-// ===================== INSERT AT HEAD =====================
-void insertAtHead(Node* &head, int d) {   // Function to insert node at head
-
-    Node* temp = new Node(d);       // Create a new node with data d
-    temp->next = head;              // New node points to current head
-    head = temp;                    // Head now points to new node
+void insertAtHead(Node* &head, int d) {   
+    Node* temp = new Node(d);     
+    temp->next = head;              
+    head = temp;                    
 }
 
-// ===================== INSERT AT TAIL =====================
-void insertAtTail(Node* &tail, int d) {   // Function to insert node at tail
-
-    Node* temp = new Node(d);       // Create a new node with data d
-    tail->next = temp;              // Current tail points to new node
-    tail = temp;                    // Update tail to new node
+void insertAtTail(Node* &tail, int d) {   
+    Node* temp = new Node(d);      
+    tail->next = temp;             
+    tail = temp;                   
 }
 
-// ===================== PRINT LINKED LIST =====================
-void print(Node* head) {            // Function to print linked list
-
-    if(head == NULL) {              // If list is empty
-        cout << "List is empty" << endl; // Print message
-        return;                     // Exit function
+void print(Node* head) {            
+    if(head == NULL) {              
+        cout << "List is empty" << endl; 
+        return;                    
     }
-
-    Node* temp = head;              // Temporary pointer starting at head
-
-    while(temp != NULL) {           // Loop till end of list
-        cout << temp->data << " ";  // Print current node data
-        temp = temp->next;          // Move to next node
+    Node* temp = head;              
+    while(temp != NULL) {          
+        cout << temp->data << " ";  
+        temp = temp->next;          
     }
-    cout << endl;                   // New line after printing list
+    cout << endl;                  
 }
-
 
 int length(Node* head) {
-
     int cnt = 0;
-
     while (head != nullptr) {
-
         cnt++;
-
         head = head->next;
     }
-
     return cnt;
 }
 
-// ===================== INSERT AT POSITION =====================
 void insertAtPosition(Node* &tail, Node* &head, int position, int d) {
-
-    if(position == 1) {             // If position is first
-        insertAtHead(head, d);      // Insert at head
-        return;                     // Exit function
+    if(position == 1) {            
+        insertAtHead(head, d);     
+        return;                    
     }
 
-    Node* temp = head;              // Pointer to traverse list
-    int cnt = 1;                    // Counter variable
+    Node* temp = head;              
+    int cnt = 1;                   
 
-    while(cnt < position - 1 && temp != NULL) { // Traverse till (position-1)
-        temp = temp->next;          // Move temp forward
-        cnt++;                      // Increment counter
+    while(cnt < position - 1 && temp != NULL) { 
+        temp = temp->next;         
+        cnt++;                     
     }
 
-    if(temp->next == NULL) {        // If inserting at end
-        insertAtTail(tail, d);      // Insert at tail
-        return;                     // Exit function
+    if(temp->next == NULL) {        
+        insertAtTail(tail, d);      
+        return;                     
     }
-
-    Node* nodeToInsert = new Node(d); // Create new node
-
-    nodeToInsert->next = temp->next;  // New node points to next node
-    temp->next = nodeToInsert;        // Previous node points to new node
+    Node* nodeToInsert = new Node(d); 
+    nodeToInsert->next = temp->next;  
+    temp->next = nodeToInsert;        
 }
 
-// ===================== DELETE NODE =====================
 void deleteNode(int position, Node* &head) {
 
-    if(head == NULL)                // If list is empty
+    if(head == NULL)              
         return;                     // Exit function
 
-    if(position == 1) {             // If deleting first node
-        Node* temp = head;          // Store current head
-        head = head->next;          // Move head to next node
-        temp->next = NULL;          // Disconnect node
-        delete temp;                // Delete node
-        return;                     // Exit function
+    if(position == 1) {             
+        Node* temp = head;         
+        head = head->next;          
+        temp->next = NULL;         
+        delete temp;               
+        return;                     
     }
 
-    Node* curr = head;              // Pointer to current node
-    Node* prev = NULL;              // Pointer to previous node
-    int cnt = 1;                    // Counter variable
+    Node* curr = head;             
+    Node* prev = NULL;              
+    int cnt = 1;                   
 
-    while(curr != NULL && cnt < position) { // Traverse to position
+    while(curr != NULL && cnt < position) { 
         prev = curr;                // Store previous node
         curr = curr->next;          // Move current forward
         cnt++;                      // Increment counter
@@ -126,7 +103,6 @@ void deleteNode(int position, Node* &head) {
     delete curr;                    // Delete current node
 }
 
-// ===================== CHECK CIRCULAR LIST =====================
 bool isCircular(Node* head) {
     if (head == nullptr)
         return true;
