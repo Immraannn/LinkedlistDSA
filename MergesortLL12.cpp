@@ -1,39 +1,4 @@
-#include <iostream>
-using namespace std;
 
-/*
-    Node structure for Singly Linked List
-*/
-class Node {
-public:
-    int data;        // stores data
-    Node* next;      // pointer to next node
-
-    // Constructor
-    Node(int d) {
-        data = d;    // assign data
-        next = NULL; // initialize next as NULL
-    }
-};
-
-/*
-    Function to print linked list
-*/
-void printList(Node* head) {
-
-    Node* temp = head;          // start from head
-
-    while (temp != NULL) {      // traverse till end
-        cout << temp->data << " ";
-        temp = temp->next;      // move to next node
-    }
-
-    cout << endl;
-}
-
-/*
-    Find middle of linked list using slow-fast method
-*/
 Node* findMid(Node* head) {
 
     Node* slow = head;          // slow moves 1 step
@@ -47,9 +12,6 @@ Node* findMid(Node* head) {
     return slow;                // slow is middle
 }
 
-/* ==========================================================
-   ITERATIVE MERGE FUNCTION (RENAMED VARIABLE)
-   ========================================================== */
 Node* mergeIterative(Node* left, Node* right) {
 
     Node* dummy = new Node(-1); // dummy node (temporary head)
@@ -119,23 +81,17 @@ Node* mergeRecursive(Node* left, Node* right) {
     Merge Sort function
 */
 Node* mergeSort(Node* head) {
-
     // base case
     if (head == NULL || head->next == NULL) {
         return head;
     }
-
     Node* mid = findMid(head);  // find middle
-
     Node* left = head;          // left half
     Node* right = mid->next;    // right half
-
     mid->next = NULL;           // break list into two parts
-
     // recursive sorting
     left = mergeSort(left);
     right = mergeSort(right);
-
     // merge sorted halves
     return mergeIterative(left, right); 
     // OR use: mergeRecursive(left, right);
