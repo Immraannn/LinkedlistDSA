@@ -115,10 +115,9 @@ bool isCircular(Node* head) {
     return false;
 }
 
-// ===================== LOOP DETECTION (floyd METHOD) =====================
+
 bool detectLoop(Node* head) {
 
-    // Empty list or single node without self-loop
     if (head == nullptr)
         return false;
 
@@ -126,70 +125,54 @@ bool detectLoop(Node* head) {
     Node* fast = head;
 
     while (fast != nullptr && fast->next != nullptr) {
-
-        slow = slow->next;          // Move 1 step
-        fast = fast->next->next;    // Move 2 steps
-
-        // If they meet, a loop exists
+        slow = slow->next;          
+        fast = fast->next->next;   
         if (slow == fast)
             return true;
     }
-
-    // Fast reached NULL → no loop
     return false;
 }
-// ===================== FLOYD CYCLE DETECTION =====================
+
 Node* floydDetectLoop(Node* head) {
 
-    if(head == NULL)                // If list is empty
-        return NULL;                // No loop
+    if(head == NULL)                
+        return NULL;               
+    Node* slow = head;              
+    Node* fast = head;              
+    while(fast != NULL && fast->next != NULL) { 
 
-    Node* slow = head;              // Slow pointer (1 step)
-    Node* fast = head;              // Fast pointer (2 steps)
+        slow = slow->next;         
+        fast = fast->next->next;   
 
-    while(fast != NULL && fast->next != NULL) { // Valid movement
-
-        slow = slow->next;          // Move slow by one step
-        fast = fast->next->next;   // Move fast by two steps
-
-        if(slow == fast)            // If pointers meet
-            return slow;            // Loop detected
+        if(slow == fast)           
+            return slow;           
     }
-    return NULL;                    // No loop
+    return NULL;                  
 }
 
-// ===================== FIND START OF LOOP =====================
+// FIND START OF LOOP
 Node* getStartingNode(Node* head) {
-
-    if(head == NULL)                // If list is empty
-        return NULL;                // No start
-
-    Node* intersection = floydDetectLoop(head); // Detect loop
-    if(intersection == NULL)        // If no loop
-        return NULL;                // Return NULL
-
-    Node* slow = head;              // Pointer from head
-
-    while(slow != intersection) {   // Move both pointers
-        slow = slow->next;          // Move slow by one
-        intersection = intersection->next; // Move intersection by one
+    if(head == NULL)               
+        return NULL;              
+    Node* intersection = floydDetectLoop(head); 
+    if(intersection == NULL)        
+        return NULL;                
+    Node* slow = head;             
+    while(slow != intersection) {   
+        slow = slow->next;        
+        intersection = intersection->next; 
     }
-
-    return slow;                    // Starting node of loop
+    return slow;                   
 }
 
-// ===================== REMOVE LOOP =====================
+//  REMOVE LOOP
 void removeLoop(Node* head) {
-
-    if(head == NULL)                // If list is empty
-        return;                     // Exit
-
+    if(head == NULL)                
+        return;                   
     Node* startOfLoop = getStartingNode(head); // Get loop start
     if(startOfLoop == NULL)         // If no loop
         return;                     // Exit
-
     Node* temp = startOfLoop;       // Start from loop node
-
     while(temp->next != startOfLoop) { // Reach last loop node
         temp = temp->next;          // Move forward
     }
@@ -197,7 +180,6 @@ void removeLoop(Node* head) {
     temp->next = NULL;              // Break the loop
 }
 
-// ===================== MAIN FUNCTION =====================
 int main() {
 
     Node* node1 = new Node(10);     // Create first node
